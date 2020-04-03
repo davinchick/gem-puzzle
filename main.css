@@ -2,3 +2,8 @@
   0% { left: x}
    100% {top: y}
 }
+
+@keyframes shownUp {
+  from {top:-320px; opacity:0}
+  to {top:0; opacity:1}
+}
