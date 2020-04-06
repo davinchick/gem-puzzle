@@ -1,5 +1,5 @@
 
-https://davinchick.github.io/gem-puzzle/Gem-puzzle.html
+https://davinchick.github.io/gem-puzzle/Index.html
 **SLIDER-PUZZLE-NUMBER GAME**
 
 ___________________________________________________________________________________
