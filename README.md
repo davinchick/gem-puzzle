@@ -1,6 +1,6 @@
-# gem-puzzle
 
-aka **SLIDER-PUZZLE-NUMBER GAME**
+https://davinchick.github.io/gem-puzzle/Gem-puzzle.html
+**SLIDER-PUZZLE-NUMBER GAME**
 
 ___________________________________________________________________________________
 *Basic requirements*:
