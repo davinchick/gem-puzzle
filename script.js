@@ -140,7 +140,8 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     gridOfChips[size - 1].push(0);
   }
-  makeChips(localStorage.size);
+  makeChips(localStorage.size || 4);
+  // console.log(gridOfChips);
 
   function placeChip(chip, col, row) {
     const x = col * (chipWidth + 8) + 8;
@@ -182,7 +183,7 @@ window.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", (event) => {
       event.preventDefault();
       chipsContainer.innerHTML = "";
-      localStorage.size = innerSize; // --------------------------------------store the size
+      localStorage.size = innerSize || 4; // --------------------------------------store the size
       document.location.reload(true);
       makeChips(innerSize);
     });
