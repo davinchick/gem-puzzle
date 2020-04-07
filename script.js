@@ -302,6 +302,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (need.join("") === resultedArr.join("")) {
       // eslint-disable-next-line no-alert
       alert("💙 YOU WIN!! CONGRATULATIONS!!!!!! 💙");
+      clearInterval(time);
     }
   }
 
