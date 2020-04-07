@@ -219,19 +219,15 @@ window.addEventListener("DOMContentLoaded", () => {
   modalWindowContent.appendChild(modalWindowClose);
 
 
-  // -------------- Array of scores
-
-  const scoreArray = [[19, 200], [13, 90], [150, 950], [20, 550], [30, 200], [28, 500], [98, 1400]]
-    .sort((a, b) => a[0] - b[0]);
-  const modalWindowScore = document.createElement("p");
-  modalWindowScore.classList.add("modalWindowScore");
-  modalWindowScore.style.cssText = "text-align: center; font-size: 18px";
-  scoreArray.forEach((el) => {
-    const p = document.createElement("p");
-    p.innerText += ` ${el[0]} moves && ${el[1]} total Time `;
-    modalWindowContent.appendChild(p);
-  });
-  modalWindowContent.appendChild(modalWindowScore);
+  // -------------- Storage of scores
+  const p = document.createElement("p");
+  for (let i = 0; i < localStorage.length; i += 1) {
+    if (/sessionGame/.test(localStorage.key(i))) {
+      const el = localStorage.getItem(localStorage.key(i));
+      p.innerHTML += `${el} <br>`;
+    }
+  }
+  modalWindowContent.appendChild(p);
 
   const scoreBtn = document.querySelector(".buttonScore");
   scoreBtn.addEventListener("click", () => {
@@ -244,11 +240,10 @@ window.addEventListener("DOMContentLoaded", () => {
   const saveBtn = document.querySelector(".buttonSave");
   saveBtn.addEventListener("click", () => {
     if (moves && timeCount) {
-      scoreArray.pop();
-      scoreArray.push([moves, timeCount]);
+      const result = ` ${moves} moves & ${timeCount} seconds `;
+      localStorage.setItem(`sessionGame ${moves}`, result);
     }
   });
-  // console.log(scoreArray);
 
   // -------------------------- Start game
 
