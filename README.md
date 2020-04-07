@@ -6,7 +6,6 @@ https://davinchick.github.io/gem-puzzle/Index.html
 - adaptive layout.. более-менее
 - Game can't !! be restarted without reloading the page - увы, пришлось включить location.reload, ибо так всё ломается
 - Chips aren't !! draggable with the mouse
-- game saving and the best 10 game scores - не сообразила, как подключить losalStore к скору.. посему просто имитация скора) 
 - In success passing the game appears the message - не сделала  )
 Тем не менее, мне понравилось работать над этим заданием. Много чего мне, гуманитарию, не понятно, но интересно))
 ___________________________________________________________________________________
