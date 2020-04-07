@@ -5,8 +5,7 @@ https://davinchick.github.io/gem-puzzle/Index.html
 ( **Друзья, чтобы никто время зря не терял,** что не работает:
 - adaptive layout.. более-менее
 - Game can't !! be restarted without reloading the page - увы, пришлось включить location.reload, ибо так всё ломается
-- Chips aren't !! draggable with the mouse
-- In success passing the game appears the message - не сделала  )
+- Chips aren't !! draggable with the mouse )
 Тем не менее, мне понравилось работать над этим заданием. Много чего мне, гуманитарию, не понятно, но интересно))
 ___________________________________________________________________________________
 *Basic requirements*:

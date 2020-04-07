@@ -83,7 +83,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const chipsContainer = document.createElement("div");
   chipsContainer.classList.add("chip_container");
-  chipsContainer.style.cssText = "margin: 0 auto; max-width: 480px; width: 100%; height: 90%; user-select: none;"
+  chipsContainer.style.cssText = "margin: 0 auto; max-width: 480px; width: 100%; height: 90%; max-height: 480px; user-select: none;"
     + "background-color: rgb(56, 48, 48); border-radius: 28px;  margin-top: 22px;"
     + "box-shadow: 2px 2px 3px rgba(255,255,255,0.1), rgba(255, 255, 255, 0.1) -2px -2px 5px; position: relative;";
   mainBox.appendChild(chipsContainer);
@@ -129,7 +129,8 @@ window.addEventListener("DOMContentLoaded", () => {
         + "box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);";
       chip.style.maxWidth = `${chipWidth}px`;
       chip.style.width = `${100 / size}%`;
-      chip.style.height = `${chipHeight}px`;
+      chip.style.height = `${100 / size}%`;
+      chip.style.maxHeight = `${chipHeight}px`;
       chip.style.fontSize = `${chipWidth * 0.5}px`;
       chipsContainer.appendChild(chip);
       const col = i % size;
@@ -292,6 +293,15 @@ window.addEventListener("DOMContentLoaded", () => {
         document.querySelector(".timeP").innerText = timeCount;
       }, 1000);
       return time;
+    }
+    // ------------------------ check if it is a WIN move
+    const need = gridOfChips.reduce((arr, el) => arr.concat(el), []);
+    const l = gridOfChips.length;
+    const resultedArr = Array.from({ length: l ** 2 - 1 }).fill(1).map((v, i) => i + 1);
+    resultedArr.push(0);
+    if (need.join("") === resultedArr.join("")) {
+      // eslint-disable-next-line no-alert
+      alert("💙 YOU WIN!! CONGRATULATIONS!!!!!! 💙");
     }
   }
 
