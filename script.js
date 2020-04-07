@@ -272,6 +272,7 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
 
+  // eslint-disable-next-line consistent-return
   function clickedChip(event) {
     const tile = event.currentTarget;
     let col;
@@ -289,6 +290,14 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     // eslint-disable-next-line no-use-before-define
     moveChip(tile, col, row);
+    if (startBtn.innerHTML === "START") {
+      startBtn.innerHTML = "PAUSE";
+      time = setInterval(() => {
+        timeCount += 1;
+        document.querySelector(".timeP").innerText = timeCount;
+      }, 1000);
+      return time;
+    }
   }
 
   function moveChip(tile, col, row) {
