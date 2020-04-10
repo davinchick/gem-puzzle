@@ -83,7 +83,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   const chipsContainer = document.createElement("div");
   chipsContainer.classList.add("chip_container");
-  chipsContainer.style.cssText = "margin: 0 auto; max-width: 480px; width: 100%; height: 90%; user-select: none;"
+  chipsContainer.style.cssText = "margin: 0 auto; max-width: 480px; width: 100%; height: 90%; max-height: 480px; user-select: none;"
     + "background-color: rgb(56, 48, 48); border-radius: 28px;  margin-top: 22px;"
     + "box-shadow: 2px 2px 3px rgba(255,255,255,0.1), rgba(255, 255, 255, 0.1) -2px -2px 5px; position: relative;";
   mainBox.appendChild(chipsContainer);
@@ -129,7 +129,8 @@ window.addEventListener("DOMContentLoaded", () => {
         + "box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);";
       chip.style.maxWidth = `${chipWidth}px`;
       chip.style.width = `${100 / size}%`;
-      chip.style.height = `${chipHeight}px`;
+      chip.style.height = `${100 / size}%`;
+      chip.style.maxHeight = `${chipHeight}px`;
       chip.style.fontSize = `${chipWidth * 0.5}px`;
       chipsContainer.appendChild(chip);
       const col = i % size;
@@ -140,7 +141,8 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     gridOfChips[size - 1].push(0);
   }
-  makeChips(localStorage.size);
+  makeChips(localStorage.size || 4);
+  // console.log(gridOfChips);
 
   function placeChip(chip, col, row) {
     const x = col * (chipWidth + 8) + 8;
@@ -182,7 +184,7 @@ window.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", (event) => {
       event.preventDefault();
       chipsContainer.innerHTML = "";
-      localStorage.size = innerSize; // --------------------------------------store the size
+      localStorage.size = innerSize || 4; // --------------------------------------store the size
       document.location.reload(true);
       makeChips(innerSize);
     });
@@ -218,19 +220,15 @@ window.addEventListener("DOMContentLoaded", () => {
   modalWindowContent.appendChild(modalWindowClose);
 
 
-  // -------------- Array of scores
-
-  const scoreArray = [[19, 200], [13, 90], [150, 950], [20, 550], [30, 200], [28, 500], [98, 1400]]
-    .sort((a, b) => a[0] - b[0]);
-  const modalWindowScore = document.createElement("p");
-  modalWindowScore.classList.add("modalWindowScore");
-  modalWindowScore.style.cssText = "text-align: center; font-size: 18px";
-  scoreArray.forEach((el) => {
-    const p = document.createElement("p");
-    p.innerText += ` ${el[0]} moves && ${el[1]} total Time `;
-    modalWindowContent.appendChild(p);
-  });
-  modalWindowContent.appendChild(modalWindowScore);
+  // -------------- Storage of scores
+  const p = document.createElement("p");
+  for (let i = 0; i < localStorage.length; i += 1) {
+    if (/sessionGame/.test(localStorage.key(i))) {
+      const el = localStorage.getItem(localStorage.key(i));
+      p.innerHTML += `${el} <br>`;
+    }
+  }
+  modalWindowContent.appendChild(p);
 
   const scoreBtn = document.querySelector(".buttonScore");
   scoreBtn.addEventListener("click", () => {
@@ -243,11 +241,10 @@ window.addEventListener("DOMContentLoaded", () => {
   const saveBtn = document.querySelector(".buttonSave");
   saveBtn.addEventListener("click", () => {
     if (moves && timeCount) {
-      scoreArray.pop();
-      scoreArray.push([moves, timeCount]);
+      const result = ` ${moves} moves & ${timeCount} seconds `;
+      localStorage.setItem(`sessionGame ${moves}`, result);
     }
   });
-  // console.log(scoreArray);
 
   // -------------------------- Start game
 
@@ -271,6 +268,7 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
 
+  // eslint-disable-next-line consistent-return
   function clickedChip(event) {
     const tile = event.currentTarget;
     let col;
@@ -288,6 +286,24 @@ window.addEventListener("DOMContentLoaded", () => {
     }
     // eslint-disable-next-line no-use-before-define
     moveChip(tile, col, row);
+    if (startBtn.innerHTML === "START") {
+      startBtn.innerHTML = "PAUSE";
+      time = setInterval(() => {
+        timeCount += 1;
+        document.querySelector(".timeP").innerText = timeCount;
+      }, 1000);
+      return time;
+    }
+    // ------------------------ check if it is a WIN move
+    const need = gridOfChips.reduce((arr, el) => arr.concat(el), []);
+    const l = gridOfChips.length;
+    const resultedArr = Array.from({ length: l ** 2 - 1 }).fill(1).map((v, i) => i + 1);
+    resultedArr.push(0);
+    if (need.join("") === resultedArr.join("")) {
+      // eslint-disable-next-line no-alert
+      alert("💙 YOU WIN!! CONGRATULATIONS!!!!!! 💙");
+      clearInterval(time);
+    }
   }
 
   function moveChip(tile, col, row) {
