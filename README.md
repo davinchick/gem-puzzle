@@ -2,6 +2,8 @@
 https://davinchick.github.io/gem-puzzle/Gem-puzzle.html
 **SLIDER-PUZZLE-NUMBER GAME**
 
+
+Completed!
 ___________________________________________________________________________________
 *Basic requirements*:
 - adaptive layout
